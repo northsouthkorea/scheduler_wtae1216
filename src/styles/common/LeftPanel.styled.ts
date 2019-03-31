@@ -6,6 +6,8 @@ const LeftPanelWrap = styled.section<{show?: boolean}>`
   flex-basis: 0;
   transition: flex-basis .3s;
   border-right:1px solid #ddd;
+  overflow-x: hidden;
+  overflow-y: scroll;
   
   ${props => (
         props.show &&
