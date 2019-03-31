@@ -1,41 +1,18 @@
+import Contents from "pages/common/Contents";
+import Header from "pages/common/Header";
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { StoreState } from "store";
-import { MainAction } from "store/actions";
+import { BrowserRouter as Router } from "react-router-dom";
 
-interface AppProps  {
-    test: string
-}
-
-class App extends Component<AppProps & AppPropsTypes> {
-
-    setTemp = () => {
-        this.props.setTemp('temp');
-    };
+class App extends Component {
 
     render() {
-        const {MainReducer} = this.props;
-        const {temp} = MainReducer;
-
         return (
-            <div id='main'>
-                <p>{temp}</p>
-                <button onClick={this.setTemp}>setTemp</button>
-            </div>
+            <Router>
+                <Header/>
+                <Contents/>
+            </Router>
         );
     }
 }
 
-const mapStateToProps = (state: StoreState) => ({
-    MainReducer: state.MainReducer
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    ...bindActionCreators(MainAction, dispatch)
-});
-
-type AppPropsTypes = ReturnType<typeof mapStateToProps>
-                    & ReturnType<typeof mapDispatchToProps>
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

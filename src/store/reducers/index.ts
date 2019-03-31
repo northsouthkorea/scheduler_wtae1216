@@ -1,10 +1,13 @@
 import { combineReducers } from "redux";
-import MainReducer, { MainState } from 'store/reducers/MainReducer';
+import HeaderReducer, { HeaderState } from 'store/reducers/HeaderReducer';
+import LeftPanelReducer, { LeftPanelState } from 'store/reducers/LeftPanelReducer';
 
 export default combineReducers({
-    MainReducer
+    HeaderReducer,
+    LeftPanelReducer
 });
 
 export interface StoreState {
-    MainReducer: MainState
+    HeaderReducer: HeaderState,
+    LeftPanelReducer: LeftPanelState
 }
