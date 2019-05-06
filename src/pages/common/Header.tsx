@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { LeftPanelAction } from "store/actions";
-import { StoreState } from "store/reducers";
-import { HeaderWrap, LeftWrap, MenuBtn, MenuName } from "styles/common/Haeder.styled";
+import { Route, Switch } from "react-router";
 
-class Header extends Component<HeaderPropsTypes> {
+import CalendarHeader from "components/common/CalendarHeader";
+import { StoreState } from "store";
+import { LeftPanelAction } from "store/actions";
+import { HeaderWrap, LeftWrap, MenuBtn, MenuName, RightWrap} from "styles/pages/common/Haeder.styled";
+
+class Header extends Component<HeaderTypes> {
 
     handleMenuBtnClick = () => {
         this.props.toggleShow();
@@ -24,6 +27,11 @@ class Header extends Component<HeaderPropsTypes> {
                     />
                     <MenuName>{HeaderReducer.title}</MenuName>
                 </LeftWrap>
+                <RightWrap>
+                    <Switch>
+                        <Route path={`/calendar`} component={CalendarHeader} />
+                    </Switch>
+                </RightWrap>
             </HeaderWrap>
         );
     }
@@ -38,7 +46,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     ...bindActionCreators(LeftPanelAction, dispatch)
 });
 
-type HeaderPropsTypes = ReturnType<typeof mapStateToProps>
-                        & ReturnType<typeof mapDispatchToProps>;
+type HeaderTypes = ReturnType<typeof mapStateToProps>
+                & ReturnType<typeof mapDispatchToProps>;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

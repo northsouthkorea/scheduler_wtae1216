@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { StoreState } from "store/reducers";
-import { LeftPanelWrap } from "styles/common/LeftPanel.styled";
+
+import { StoreState } from "store";
+import { LeftPanelWrap } from "styles/pages/common/LeftPanel.styled";
 
 
-class LeftPanel extends Component<LeftPanelPropsTypes>   {
+class LeftPanel extends Component<LeftPanelTypes>   {
 
     render()    {
         const { LeftPanelReducer } = this.props;
@@ -20,6 +21,6 @@ const mapStateToProps = (state: StoreState) => ({
     LeftPanelReducer: state.LeftPanelReducer
 });
 
-type LeftPanelPropsTypes = ReturnType<typeof mapStateToProps>;
+type LeftPanelTypes = ReturnType<typeof mapStateToProps>;
 
 export default connect(mapStateToProps)(LeftPanel);

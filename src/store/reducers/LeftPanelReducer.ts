@@ -5,7 +5,7 @@ export interface LeftPanelState {
 }
 
 const initialState: LeftPanelState = {
-    show: false
+    show: true
 };
 
 class LeftPanelReducer extends ImmerReducer<LeftPanelState>  {

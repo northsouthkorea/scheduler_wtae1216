@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 import { Menu } from "styled-icons/boxicons-regular/Menu";
 
-const HeaderWrap = styled.section`
+export const HeaderWrap = styled.section`
   position: fixed;
   top:0; left:0; right:0;
   z-index: 1000;
@@ -19,15 +19,24 @@ const HeaderWrap = styled.section`
   padding: .5rem;
 `;
 
-const LeftWrap = styled.section`
+export const LeftWrap = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex-basis: 280px;
+  flex-basis: 17rem;
+  box-sizing: border-box;
+`;
+
+export const RightWrap = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 auto;
 `;
 
 
-const MenuBtn = styled(Menu)<{show?: boolean}>`
+export const MenuBtn = styled(Menu)<{show?: boolean}>`
   color: #bcbcbc;
   cursor: pointer;
   transition: color .3s, background .3s;
@@ -37,7 +46,7 @@ const MenuBtn = styled(Menu)<{show?: boolean}>`
   
   &:hover {
     color: #2a2a2a;
-    background: #eaeaea; 
+    background: #efefef; 
   }
   
   ${props => (
@@ -48,11 +57,8 @@ const MenuBtn = styled(Menu)<{show?: boolean}>`
   )}
 `;
 
-const MenuName = styled.h1`
+export const MenuName = styled.h1`
   color: #888;
   font-size: 1.3rem;
   margin-left: .5rem;
 `;
-
-
-export { HeaderWrap, LeftWrap, MenuBtn, MenuName };

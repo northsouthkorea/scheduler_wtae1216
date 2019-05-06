@@ -1,8 +1,9 @@
+import React, { Component } from 'react';
+import { Redirect, Route, Switch } from "react-router";
+
 import Calendar from "pages/calendar/Calendar";
 import LeftPanel from "pages/common/LeftPanel";
-import React, { Component } from 'react';
-import { Route, Switch } from "react-router";
-import { ContentsWrap } from "styles/common/Contents.styled";
+import { ContentsWrap } from "styles/pages/common/Contents.styled";
 
 class Contents extends Component    {
     render()    {
@@ -10,7 +11,9 @@ class Contents extends Component    {
             <ContentsWrap>
                 <LeftPanel/>
                 <Switch>
-                    <Route path={'/'} exact component={Calendar}/>
+                    <Route path={'/calendar'} component={Calendar}/>
+
+                    <Redirect to={`/calendar`}/>
                 </Switch>
             </ContentsWrap>
         );
