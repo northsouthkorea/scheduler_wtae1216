@@ -1,21 +1,30 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-react",
-    "tslint-eslint-rules",
-    "tslint-config-prettier"
-  ],
-  "linterOptions": {"exclude": ["config/**/*.js", "node_modules/**/*.ts", "coverage/lcov-report/*.js"]},
-  "rules": {
-    "interface-name": false,
-    "object-literal-sort-keys": false,
-    "jsx-boolean-value": false,
-    "no-submodule-imports": false,
-    "no-console": false,
-    "member-access": [true, "no-public"],
-    "no-implicit-dependencies": false,
-    "ordered-imports": false,
-    "one-variable-per-declaration": false,
-    "member-ordering": false
-  }
+    "extends": [
+        "tslint:latest",
+        "tslint-react",
+        "tslint-eslint-rules",
+        "tslint-plugin-prettier",
+        "tslint-config-prettier"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts",
+            "coverage/lcov-report/*.js"
+        ]
+    },
+    "rules": {
+        "interface-name": false,
+        "object-literal-sort-keys": false,
+        "jsx-boolean-value": false,
+        "no-submodule-imports": false,
+        "no-console": false,
+        "member-access": [true, "no-public"],
+        "no-implicit-dependencies": false,
+        "ordered-imports": false,
+        "one-variable-per-declaration": false,
+        "interface-over-type-literal": false,
+        "member-ordering": false,
+        "prettier": [true, ".prettierrc"]
+    }
 }

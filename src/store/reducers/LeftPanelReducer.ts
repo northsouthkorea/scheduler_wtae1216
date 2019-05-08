@@ -1,15 +1,19 @@
-import { createActionCreators, createReducerFunction, ImmerReducer } from "immer-reducer";
+import {
+    createActionCreators,
+    createReducerFunction,
+    ImmerReducer
+} from "immer-reducer";
 
 export interface LeftPanelState {
-    show: boolean
+    show: boolean;
 }
 
 const initialState: LeftPanelState = {
     show: true
 };
 
-class LeftPanelReducer extends ImmerReducer<LeftPanelState>  {
-    toggleShow()   {
+class LeftPanelReducer extends ImmerReducer<LeftPanelState> {
+    toggleShow() {
         this.draftState.show = !this.draftState.show;
     }
 }

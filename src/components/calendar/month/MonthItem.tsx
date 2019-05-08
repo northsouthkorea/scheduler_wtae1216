@@ -2,49 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Moment } from "moment";
 
-import { MonthItemWrap } from "styles/components/calendar/month/MonthItem.styled";
+import {
+    DateText,
+    MonthItemWrap
+} from "styles/components/calendar/month/MonthItem.styled";
 
 import { StoreState } from "store";
 
-interface MonthItemState {
-    dateText: string,
-    dayText: string
-}
-
 interface MonthItemProps {
-    date: Moment
+    date: Moment;
+    today: boolean;
 }
 
 type MonthItemPropsTypes = MonthItemProps & MonthItemTypes;
 
-class MonthItem extends Component<MonthItemPropsTypes>   {
-
-    state: MonthItemState = {
-        dateText: null,
-        dayText: null
-    };
-
-    static getDerivedStateFromProps(nextProps: MonthItemPropsTypes)  {
-        const { date, CalendarReducer } = nextProps;
-        const currentDate: Moment = CalendarReducer.date.clone();
-
-        const dateText: string = (date.month() !== currentDate.month()) ?
-            date.format('MM.DD') :
-            date.format('DD');
-
-        return {
-            dateText,
-            dayText: date.format('dd')
-        }
-    }
-
-    render()    {
-
-        const { dayText, dateText } = this.state;
+class MonthItem extends Component<MonthItemPropsTypes> {
+    render() {
+        const { date, CalendarReducer, today } = this.props;
+        const currentDate = CalendarReducer.date,
+            dateText =
+                date.date() === 1 ? date.format("M월 D일") : date.format("D"),
+            different = date.month() !== currentDate.month();
 
         return (
             <MonthItemWrap>
-                {dayText} | {dateText}
+                <DateText different={different} today={today}>
+                    {dateText}
+                </DateText>
             </MonthItemWrap>
         );
     }

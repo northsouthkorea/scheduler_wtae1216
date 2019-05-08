@@ -1,10 +1,14 @@
-import { Types } from 'constants/Calendar';
-import { createActionCreators, createReducerFunction, ImmerReducer } from "immer-reducer";
+import { Types } from "constants/Calendar";
+import {
+    createActionCreators,
+    createReducerFunction,
+    ImmerReducer
+} from "immer-reducer";
 import moment, { Moment } from "moment";
 
-export interface CalendarState  {
-    type: Types,
-    date: Moment
+export interface CalendarState {
+    type: Types;
+    date: Moment;
 }
 
 const initialState: CalendarState = {
@@ -13,14 +17,13 @@ const initialState: CalendarState = {
 };
 
 class CalendarReducer extends ImmerReducer<CalendarState> {
-    setType(type: Types)   {
+    setType(type: Types) {
         this.draftState.type = type;
     }
 
-    setDate(date: Moment)   {
+    setDate(date: Moment) {
         this.draftState.date = date;
     }
-
 }
 
 export default createReducerFunction(CalendarReducer, initialState);

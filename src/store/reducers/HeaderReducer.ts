@@ -1,15 +1,19 @@
-import { createActionCreators, createReducerFunction, ImmerReducer } from "immer-reducer";
+import {
+    createActionCreators,
+    createReducerFunction,
+    ImmerReducer
+} from "immer-reducer";
 
 export interface HeaderState {
-    title: string
+    title: string;
 }
 
 const initialState: HeaderState = {
-    title: '캘린더'
+    title: "캘린더"
 };
 
-class HeaderReducer extends ImmerReducer<HeaderState>  {
-    setTitle(title: string)   {
+class HeaderReducer extends ImmerReducer<HeaderState> {
+    setTitle(title: string) {
         this.draftState.title = title;
     }
 }

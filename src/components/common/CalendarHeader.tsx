@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import moment from 'moment';
+import moment from "moment";
 
 import { MenuItem, OutlinedInput, Select } from "@material-ui/core";
 import {
@@ -20,33 +20,32 @@ import { CalendarAction } from "store/actions";
 import { ProcedureTypes, Types, TypesText } from "constants/Calendar";
 
 interface CalendarHeaderStates {
-    dateText: string
+    dateText: string;
 }
 
-class CalendarHeader extends Component<CalendarHeaderTypes>  {
-
+class CalendarHeader extends Component<CalendarHeaderTypes> {
     state: CalendarHeaderStates = {
         dateText: null
     };
 
-    static getDerivedStateFromProps(nextProps: CalendarHeaderTypes)   {
+    static getDerivedStateFromProps(nextProps: CalendarHeaderTypes) {
         const { date, type } = nextProps.CalendarReducer;
         const nextDate = date.clone();
-        let dateText = date.format('YY년 MM월');
+        let dateText = date.format("YYYY년 MM월");
 
-        switch(type)   {
+        switch (type) {
             case Types.WEEK:
                 nextDate.add(1, Types.WEEK);
-                if (date.month() !== nextDate.month())  {
-                    dateText += nextDate.format(' - MM월');
+                if (date.month() !== nextDate.month()) {
+                    dateText += nextDate.format(" - MM월");
                 }
                 break;
             case Types.DAY:
-                dateText += date.format(' DD일');
+                dateText += date.format(" DD일");
                 break;
         }
 
-        return  {dateText};
+        return { dateText };
     }
 
     // change calendar types (month/week/day)
@@ -71,17 +70,31 @@ class CalendarHeader extends Component<CalendarHeaderTypes>  {
         this.props.setDate(today);
     };
 
-    render()    {
+    render() {
         const { type } = this.props.CalendarReducer;
         const { dateText } = this.state;
 
         return (
             <CalendarHeaderWrap>
                 <DateWrap>
-                    <TodayButton variant={'outlined'} onClick={this.handleChangeToday}>오늘</TodayButton>
+                    <TodayButton
+                        variant={"outlined"}
+                        onClick={this.handleChangeToday}>
+                        오늘
+                    </TodayButton>
                     <ArrowWrap>
-                        <ChevronLeft onClick={this.handleChangeDate(ProcedureTypes.PREV)}>%lt;</ChevronLeft>
-                        <ChevronRight onClick={this.handleChangeDate(ProcedureTypes.NEXT)}>%rt;</ChevronRight>
+                        <ChevronLeft
+                            onClick={this.handleChangeDate(
+                                ProcedureTypes.PREV
+                            )}>
+                            %lt;
+                        </ChevronLeft>
+                        <ChevronRight
+                            onClick={this.handleChangeDate(
+                                ProcedureTypes.NEXT
+                            )}>
+                            %rt;
+                        </ChevronRight>
                     </ArrowWrap>
                     <DateText>{dateText}</DateText>
                 </DateWrap>
@@ -91,12 +104,21 @@ class CalendarHeader extends Component<CalendarHeaderTypes>  {
                             value={type}
                             onChange={this.handleChangeType}
                             input={
-                                <OutlinedInput className={'outline-input'} name="type" labelWidth={0}/>
-                            }
-                        >
-                            <MenuItem value={Types.DAY}>{TypesText.DAY}</MenuItem>
-                            <MenuItem value={Types.WEEK}>{TypesText.WEEK}</MenuItem>
-                            <MenuItem value={Types.MONTH}>{TypesText.MONTH}</MenuItem>
+                                <OutlinedInput
+                                    className={"outline-input"}
+                                    name="type"
+                                    labelWidth={0}
+                                />
+                            }>
+                            <MenuItem value={Types.DAY}>
+                                {TypesText.DAY}
+                            </MenuItem>
+                            <MenuItem value={Types.WEEK}>
+                                {TypesText.WEEK}
+                            </MenuItem>
+                            <MenuItem value={Types.MONTH}>
+                                {TypesText.MONTH}
+                            </MenuItem>
                         </Select>
                     </TypeFormControl>
                 </MenuWrap>
@@ -113,7 +135,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     ...bindActionCreators(CalendarAction, dispatch)
 });
 
-type CalendarHeaderTypes = ReturnType<typeof mapStateToProps>
-                            & ReturnType<typeof mapDispatchToProps>;
+type CalendarHeaderTypes = ReturnType<typeof mapStateToProps> &
+    ReturnType<typeof mapDispatchToProps>;
 
-export default connect(mapStateToProps, mapDispatchToProps)(CalendarHeader);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CalendarHeader);

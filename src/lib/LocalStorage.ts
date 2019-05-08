@@ -1,14 +1,13 @@
-
 interface Instance {
-    [namespace: string]: LocalStorage
+    [namespace: string]: LocalStorage;
 }
 
 class LocalStorage {
     protected static instance: Instance = {};
     protected namespace: string = null;
 
-    constructor(namespace: string)  {
-        if (!LocalStorage.instance[namespace])   {
+    constructor(namespace: string) {
+        if (!LocalStorage.instance[namespace]) {
             this.setNamespace(namespace);
             LocalStorage.instance[namespace] = this;
             return this;
@@ -17,7 +16,7 @@ class LocalStorage {
         return LocalStorage.instance[namespace];
     }
 
-    setNamespace(namespace: string): void   {
+    setNamespace(namespace: string): void {
         this.namespace = namespace;
     }
 
@@ -25,12 +24,12 @@ class LocalStorage {
         localStorage.getItem(this.getKey(key));
     }
 
-    setItem(key: string, value: any): void  {
+    setItem(key: string, value: any): void {
         localStorage.setItem(this.getKey(key), value);
     }
 
     private getKey(key: string): string {
-        return this.namespace + ':' + key;
+        return this.namespace + ":" + key;
     }
 }
 

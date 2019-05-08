@@ -1,15 +1,15 @@
-import App from 'pages/App';
-import React from 'react';
+import App from "pages/App";
+import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
-import store from 'store';
+import { BrowserRouter } from "react-router-dom";
+import store from "store";
 import GlobalStyle from "./styles/common.styled";
 
 const Root = () => (
     <BrowserRouter>
         <Provider store={store}>
-            <GlobalStyle/>
-            <App/>
+            <GlobalStyle />
+            <App />
         </Provider>
     </BrowserRouter>
 );

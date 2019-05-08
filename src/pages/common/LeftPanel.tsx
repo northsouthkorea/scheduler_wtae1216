@@ -4,10 +4,8 @@ import { connect } from "react-redux";
 import { StoreState } from "store";
 import { LeftPanelWrap } from "styles/pages/common/LeftPanel.styled";
 
-
-class LeftPanel extends Component<LeftPanelTypes>   {
-
-    render()    {
+class LeftPanel extends Component<LeftPanelTypes> {
+    render() {
         const { LeftPanelReducer } = this.props;
         return (
             <LeftPanelWrap show={LeftPanelReducer.show}>
