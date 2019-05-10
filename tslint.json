@@ -4,7 +4,8 @@
         "tslint-react",
         "tslint-eslint-rules",
         "tslint-plugin-prettier",
-        "tslint-config-prettier"
+        "tslint-config-prettier",
+        "tslint-import-group-ordering"
     ],
     "linterOptions": {
         "exclude": [
@@ -14,6 +15,7 @@
         ]
     },
     "rules": {
+        "switch-default": false,
         "interface-name": false,
         "object-literal-sort-keys": false,
         "jsx-boolean-value": false,
@@ -25,6 +27,64 @@
         "one-variable-per-declaration": false,
         "interface-over-type-literal": false,
         "member-ordering": false,
-        "prettier": [true, ".prettierrc"]
+        "prettier": [true, ".prettierrc"],
+        "import-group-ordering": {
+            "severity": "warning",
+            "options": {
+                "imports-groups": [
+                    {"name": "dependencies"},
+                    {"name": "redux"},
+                    {"name": "config"},
+                    {"name": "common"},
+                    {"name": "page"},
+                    {"name": "component"},
+                    {"name": "style"},
+                    {"name": "other"}
+                ],
+                "matching-rules": [
+                    {
+                        "type": "dependencies",
+                        "imports-group": "dependencies",
+                        "disable-native-nodejs-modules": true,
+                        "from-package.json": true
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(config)",
+                        "imports-group": "config"
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(lib|constants)",
+                        "imports-group": "common"
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(store)",
+                        "imports-group": "redux"
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(pages)",
+                        "imports-group": "page"
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(components)",
+                        "imports-group": "component"
+                    },
+                    {
+                        "type": "project",
+                        "matches": "^(styles)",
+                        "imports-group": "style"
+                    },
+                    {
+                        "type": "project",
+                        "matches": ".*",
+                        "imports-group": "other"
+                    }
+                ]
+            }
+        }
     }
 }

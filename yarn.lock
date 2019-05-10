@@ -10386,6 +10386,11 @@ tslint-eslint-rules@^5.4.0:
     tslib "1.9.0"
     tsutils "^3.0.0"
 
+tslint-import-group-ordering@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/tslint-import-group-ordering/-/tslint-import-group-ordering-2.1.1.tgz#ee91c94a624d22e9c097ab969c0b88af85eff819"
+  integrity sha512-paBSvKhP3VXUx5Irsjf/V7uDUxgVwI80q9n+pJMQXjzRQolq0ht8PJ07xnDjGXTwhncStU+qogbtNghfbY/kbQ==
+
 tslint-plugin-prettier@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/tslint-plugin-prettier/-/tslint-plugin-prettier-2.0.1.tgz#95b6a3b766622ffc44375825d7760225c50c3680"
