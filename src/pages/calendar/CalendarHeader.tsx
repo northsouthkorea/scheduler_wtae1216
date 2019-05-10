@@ -1,9 +1,12 @@
 import React, { ChangeEvent, Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
-import moment from "moment";
-
 import { MenuItem, OutlinedInput, Select } from "@material-ui/core";
+
+import { StoreState } from "store";
+import { CalendarAction } from "store/actions";
+
+import { ProcedureTypes, Types, TypesText } from "constants/Calendar";
+
 import {
     ArrowWrap,
     CalendarHeaderWrap,
@@ -15,9 +18,8 @@ import {
 } from "styles/components/common/CalendarHeader.styled";
 import { ChevronLeft, ChevronRight } from "styles/icons.styled";
 
-import { StoreState } from "store";
-import { CalendarAction } from "store/actions";
-import { ProcedureTypes, Types, TypesText } from "constants/Calendar";
+import { bindActionCreators, Dispatch } from "redux";
+import moment from "moment";
 
 interface CalendarHeaderStates {
     dateText: string;

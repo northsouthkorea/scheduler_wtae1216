@@ -1,9 +1,11 @@
-import { Types } from "constants/Calendar";
 import {
     createActionCreators,
     createReducerFunction,
     ImmerReducer
 } from "immer-reducer";
+
+import { Types } from "constants/Calendar";
+
 import moment, { Moment } from "moment";
 
 export interface CalendarState {

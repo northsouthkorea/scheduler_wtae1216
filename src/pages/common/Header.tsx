@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Route, Switch } from "react-router";
 
-import CalendarHeader from "components/common/CalendarHeader";
 import { StoreState } from "store";
 import { LeftPanelAction } from "store/actions";
+
+import CalendarHeader from "pages/calendar/CalendarHeader";
+
 import {
     HeaderWrap,
     LeftWrap,
@@ -13,6 +14,8 @@ import {
     MenuName,
     RightWrap
 } from "styles/pages/common/Haeder.styled";
+
+import { bindActionCreators } from "redux";
 
 class Header extends Component<HeaderTypes> {
     handleMenuBtnClick = () => {

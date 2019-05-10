@@ -1,7 +1,8 @@
-import "config/moment.config";
-
 import React from "react";
 import ReactDOM from "react-dom";
+
+import "config/moment.config";
+
 import Root from "Root";
 import * as serviceWorker from "serviceWorker";
 

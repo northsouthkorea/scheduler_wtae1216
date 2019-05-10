@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import moment, { Moment } from "moment";
 
-import Util from "lib/Util";
-
-import { Types } from "constants/Calendar";
 import { CalendarAction } from "store/actions";
 import { StoreState } from "store";
+
+import Util from "lib/Util";
+import { Types } from "constants/Calendar";
+
+import MonthItem from "pages/calendar/month/MonthItem";
 
 import {
     MonthCalendarWrap,
     MonthList,
     WeekList
-} from "styles/components/calendar/month/MonthCalendar.styled";
+} from "styles/pages/calendar/month/MonthCalendar.styled";
 
-import MonthItem from "components/calendar/month/MonthItem";
+import { bindActionCreators } from "redux";
+import moment, { Moment } from "moment";
 
 interface MonthCalendarState {
     minDate: Moment;
@@ -35,8 +36,8 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
 
     static getDerivedStateFromProps(nextProps: MonthCalendarTypes) {
         const { CalendarReducer } = nextProps;
-        const minDate = CalendarReducer.date.clone(),
-            maxDate = CalendarReducer.date.clone();
+        const minDate: Moment = CalendarReducer.date.clone(),
+            maxDate: Moment = CalendarReducer.date.clone();
 
         minDate.date(1).subtract(minDate.day(), "days");
 
@@ -53,10 +54,11 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
 
     render() {
         const { minDate, maxDate } = this.state;
-        const subtractWeeks =
-                (maxDate.valueOf() - minDate.valueOf()) / 8.64e7 / 7,
-            subtractArray = Util.range(subtractWeeks),
-            weekArray = Util.range(7);
+        const subtractWeeks: number = Math.ceil(
+                (maxDate.valueOf() - minDate.valueOf()) / 8.64e7 / 7
+            ),
+            subtractArray: number[] = Util.range(subtractWeeks),
+            weekArray: number[] = Util.range(7);
 
         const date = minDate.clone().subtract(1, "days"),
             currentDate = moment(),

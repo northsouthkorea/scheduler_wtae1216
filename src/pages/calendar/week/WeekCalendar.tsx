@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+
+import { CalendarAction } from "store/actions";
 
 import { Types } from "constants/Calendar";
-import { CalendarAction } from "store/actions";
+
+import { bindActionCreators } from "redux";
 
 class WeekCalendar extends Component<WeekCalendarTypes> {
     constructor(props: WeekCalendarTypes) {

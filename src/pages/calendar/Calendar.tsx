@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
-import DayCalendar from "components/calendar/day/DayCalendar";
-import MonthCalendar from "components/calendar/month/MonthCalendar";
-import WeekCalendar from "components/calendar/week/WeekCalendar";
 import { StoreState } from "store";
 
-import { CalendarWrap } from "styles/components/calendar/Calendar.styled";
+import DayCalendar from "pages/calendar/day/DayCalendar";
+import MonthCalendar from "pages/calendar/month/MonthCalendar";
+import WeekCalendar from "pages/calendar/week/WeekCalendar";
+
+import { CalendarWrap } from "styles/pages/calendar/Calendar.styled";
 
 type CalendarPropsTypes = RouteComponentProps & CalendarTypes;
 class Calendar extends Component<CalendarPropsTypes> {
@@ -33,8 +34,8 @@ class Calendar extends Component<CalendarPropsTypes> {
     }
 
     componentDidUpdate(
-        prevProps: Readonly<CalendarPropsTypes>,
-        prevState: Readonly<{}>,
+        prevProps: CalendarPropsTypes,
+        prevState: {},
         snapshot?: any
     ) {
         const { CalendarReducer, match } = this.props;

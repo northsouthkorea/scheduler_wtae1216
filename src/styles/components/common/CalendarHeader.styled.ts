@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button, FormControl } from "@material-ui/core";
+
 import { ChevronLeft, ChevronRight } from "styles/icons.styled";
 
 export const CalendarHeaderWrap = styled.section`
