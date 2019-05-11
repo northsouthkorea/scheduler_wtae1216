@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
+import { bindActionCreators } from "redux";
+import { Moment } from "moment";
+
 import { StoreState } from "store";
+import { CalendarAction } from "store/actions";
 
 import { ProcedureTypes } from "constants/Common";
+import { Types } from "constants/Calendar";
 
 import DayCalendar from "pages/calendar/day/DayCalendar";
 import MonthCalendar from "pages/calendar/month/MonthCalendar";
@@ -14,8 +19,6 @@ import {
     CalendarAniWrap,
     CalendarWrap
 } from "styles/pages/calendar/Calendar.styled";
-
-import { Moment } from "moment";
 
 type CalendarPropsTypes = RouteComponentProps & CalendarTypes;
 
@@ -29,6 +32,39 @@ class Calendar extends Component<CalendarPropsTypes> {
         action: null,
         currentDate: null
     };
+
+    constructor(props: CalendarPropsTypes) {
+        super(props);
+
+        // set url pattern
+        const { location, CalendarReducer } = props;
+        const originalType = CalendarReducer.type,
+            originalDate = CalendarReducer.date,
+            date = CalendarReducer.date.clone();
+        const [
+            ,
+            type = originalType,
+            urlYear = date.year(),
+            urlMonth = date.month() + 1,
+            urlDate = date.date()
+        ] = location.pathname.split("/").filter((n) => n);
+
+        // set type from url
+        const calendarType = (Object.values(Types).includes(type)
+            ? type
+            : originalType) as Types;
+        if (calendarType !== originalType) {
+            props.setType(calendarType);
+        }
+
+        // set date from url
+        date.year(parseInt(String(urlYear), 10))
+            .month(parseInt(String(urlMonth), 10) - 1)
+            .date(parseInt(String(urlDate), 10));
+        if (date.valueOf() !== originalDate.valueOf()) {
+            props.setDate(date);
+        }
+    }
 
     static getDerivedStateFromProps(
         nextProps: CalendarPropsTypes,
@@ -50,8 +86,10 @@ class Calendar extends Component<CalendarPropsTypes> {
             currentDate: date
         };
     }
+
     render() {
         const { CalendarReducer, match } = this.props;
+        const { type, date } = CalendarReducer;
         const { action, currentDate } = this.state;
         return (
             <CalendarWrap>
@@ -73,7 +111,10 @@ class Calendar extends Component<CalendarPropsTypes> {
                         />
 
                         <Redirect
-                            to={`${match.path}/${CalendarReducer.type}`}
+                            to={`${
+                                match.path
+                            }/${type}/${date.year()}/${date.month() +
+                                1}/${date.date()}`}
                         />
                     </Switch>
                 </CalendarAniWrap>
@@ -87,8 +128,19 @@ class Calendar extends Component<CalendarPropsTypes> {
         snapshot?: any
     ) {
         const { CalendarReducer, match } = this.props;
-        if (CalendarReducer.type !== prevProps.CalendarReducer.type) {
-            this.props.history.push(`${match.path}/${CalendarReducer.type}`);
+        const { type, date } = CalendarReducer;
+
+        const prevType = prevProps.CalendarReducer.type,
+            prevDate = prevProps.CalendarReducer.date;
+
+        if (
+            type !== prevType ||
+            date.format("YYYYMMDD") !== prevDate.format("YYYYMMDD")
+        ) {
+            this.props.history.push(
+                `${match.path}/${type}/${date.year()}/${date.month() +
+                    1}/${date.date()}`
+            );
         }
     }
 }
@@ -97,6 +149,14 @@ const mapStateToProps = (state: StoreState) => ({
     CalendarReducer: state.CalendarReducer
 });
 
-type CalendarTypes = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = (dispatch: any) => ({
+    ...bindActionCreators(CalendarAction, dispatch)
+});
 
-export default connect(mapStateToProps)(Calendar);
+type CalendarTypes = ReturnType<typeof mapStateToProps> &
+    ReturnType<typeof mapDispatchToProps>;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Calendar);

@@ -4,9 +4,9 @@ import {
     ImmerReducer
 } from "immer-reducer";
 
-import { Types } from "constants/Calendar";
-
 import moment, { Moment } from "moment";
+
+import { Types } from "constants/Calendar";
 
 export interface CalendarState {
     type: Types;

@@ -34,13 +34,13 @@
             "options": {
                 "imports-groups": [
                     {"name": "dependencies"},
+                    {"name": "other"},
                     {"name": "redux"},
                     {"name": "config"},
                     {"name": "common"},
                     {"name": "page"},
                     {"name": "component"},
-                    {"name": "style"},
-                    {"name": "other"}
+                    {"name": "style"}
                 ],
                 "matching-rules": [
                     {

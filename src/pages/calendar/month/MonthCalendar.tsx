@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { StoreState } from "store";
-import { CalendarAction } from "store/actions";
+import moment, { Moment } from "moment";
 
-import { Types } from "constants/Calendar";
+import { StoreState } from "store";
+
 import Util from "lib/Util";
 
 import MonthItem from "pages/calendar/month/MonthItem";
@@ -14,9 +14,6 @@ import {
     MonthList,
     WeekList
 } from "styles/pages/calendar/month/MonthCalendar.styled";
-
-import moment, { Moment } from "moment";
-import { bindActionCreators } from "redux";
 
 interface MonthCalendarState {
     minDate: Moment;
@@ -28,11 +25,6 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
         minDate: null,
         maxDate: null
     };
-
-    constructor(props: MonthCalendarTypes) {
-        super(props);
-        this.props.setType(Types.MONTH);
-    }
 
     static getDerivedStateFromProps(nextProps: MonthCalendarTypes) {
         const { CalendarReducer } = nextProps;
@@ -100,14 +92,6 @@ const mapStateToProps = (state: StoreState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-    ...bindActionCreators(CalendarAction, dispatch)
-});
+type MonthCalendarTypes = ReturnType<typeof mapStateToProps>;
 
-type MonthCalendarTypes = ReturnType<typeof mapStateToProps> &
-    ReturnType<typeof mapDispatchToProps>;
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MonthCalendar);
+export default connect(mapStateToProps)(MonthCalendar);

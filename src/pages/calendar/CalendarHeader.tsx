@@ -2,6 +2,9 @@ import React, { ChangeEvent, Component } from "react";
 import { connect } from "react-redux";
 import { MenuItem, OutlinedInput, Select } from "@material-ui/core";
 
+import { bindActionCreators, Dispatch } from "redux";
+import moment from "moment";
+
 import { StoreState } from "store";
 import { CalendarAction } from "store/actions";
 
@@ -17,9 +20,6 @@ import {
     TypeFormControl
 } from "styles/pages/calendar/CalendarHeader.styled";
 import { ChevronLeft, ChevronRight } from "styles/icons.styled";
-
-import { bindActionCreators, Dispatch } from "redux";
-import moment from "moment";
 
 interface CalendarHeaderStates {
     dateText: string;

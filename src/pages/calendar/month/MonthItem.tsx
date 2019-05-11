@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { Moment } from "moment";
+
 import { StoreState } from "store";
 
 import {
     DateText,
     MonthItemWrap
 } from "styles/pages/calendar/month/MonthItem.styled";
-
-import { Moment } from "moment";
 
 interface MonthItemProps {
     date: Moment;

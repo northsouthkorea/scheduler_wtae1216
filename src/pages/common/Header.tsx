@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 
+import { bindActionCreators } from "redux";
+
 import { StoreState } from "store";
 import { LeftPanelAction } from "store/actions";
 
@@ -14,8 +16,6 @@ import {
     MenuName,
     RightWrap
 } from "styles/pages/common/Haeder.styled";
-
-import { bindActionCreators } from "redux";
 
 class Header extends Component<HeaderTypes> {
     handleMenuBtnClick = () => {
