@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { StoreState } from "store";
 import { CalendarAction } from "store/actions";
 
-import MonthItem from "pages/calendar/month/MonthItem";
-
 import { ProcedureTypes, Types } from "constants/Calendar";
 import Util from "lib/Util";
+import MonthItem from "pages/calendar/month/MonthItem";
 
 import {
     MonthCalendarWrap,
