@@ -66,7 +66,7 @@ export const ArrowWrap = styled.div`
 
 export const DateText = styled.span`
     font-size: 1.35rem;
-    color: #606060;
+    color: #505050;
 `;
 
 export const MenuWrap = styled.article`

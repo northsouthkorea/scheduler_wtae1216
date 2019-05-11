@@ -14,7 +14,7 @@ const LeftPanelWrap = styled.section<{ show?: boolean }>`
     ${(props) =>
         props.show &&
         css`
-            flex-basis: 17rem;
+            flex-basis: 19rem;
         `}
 `;
 

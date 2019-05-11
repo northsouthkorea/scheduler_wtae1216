@@ -15,7 +15,7 @@ import {
     MenuWrap,
     TodayButton,
     TypeFormControl
-} from "styles/components/common/CalendarHeader.styled";
+} from "styles/pages/calendar/CalendarHeader.styled";
 import { ChevronLeft, ChevronRight } from "styles/icons.styled";
 
 import { bindActionCreators, Dispatch } from "redux";

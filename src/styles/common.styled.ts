@@ -3,7 +3,10 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
   
-  * {margin: 0;}
+  * {
+    margin: 0;
+    user-select: none;
+  }
   
   html, body  {
     color: #2a2a2a;

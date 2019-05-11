@@ -28,7 +28,7 @@ class MonthItem extends Component<MonthItemPropsTypes> {
         return (
             <MonthItemWrap>
                 <DateText different={different} today={today}>
-                    {dateText}
+                    <a>{dateText}</a>
                 </DateText>
             </MonthItemWrap>
         );
