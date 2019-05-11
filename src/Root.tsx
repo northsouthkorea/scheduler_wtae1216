@@ -6,7 +6,7 @@ import store from "store";
 
 import App from "pages/App";
 
-import GlobalStyle from "./styles/common.styled";
+import GlobalStyle from "styles/common.styled";
 
 const Root = () => (
     <BrowserRouter>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { StoreState } from "store";
 import { CalendarAction } from "store/actions";
 
-import { ProcedureTypes, Types } from "constants/Calendar";
+import { Types } from "constants/Calendar";
 import Util from "lib/Util";
 
 import MonthItem from "pages/calendar/month/MonthItem";
@@ -19,18 +19,14 @@ import moment, { Moment } from "moment";
 import { bindActionCreators } from "redux";
 
 interface MonthCalendarState {
-    currentDate: Moment;
     minDate: Moment;
     maxDate: Moment;
-    action: ProcedureTypes;
 }
 
 class MonthCalendar extends Component<MonthCalendarTypes> {
     state: MonthCalendarState = {
-        currentDate: null,
         minDate: null,
-        maxDate: null,
-        action: null
+        maxDate: null
     };
 
     constructor(props: MonthCalendarTypes) {
@@ -38,22 +34,10 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
         this.props.setType(Types.MONTH);
     }
 
-    static getDerivedStateFromProps(
-        nextProps: MonthCalendarTypes,
-        state: MonthCalendarState
-    ) {
+    static getDerivedStateFromProps(nextProps: MonthCalendarTypes) {
         const { CalendarReducer } = nextProps;
-        const date: Moment = CalendarReducer.date.clone(),
-            minDate: Moment = CalendarReducer.date.clone(),
+        const minDate: Moment = CalendarReducer.date.clone(),
             maxDate: Moment = CalendarReducer.date.clone();
-        const currentDate = state.currentDate || date;
-
-        let action = ProcedureTypes.CURRENT;
-        if (date.valueOf() < currentDate.valueOf()) {
-            action = ProcedureTypes.PREV;
-        } else if (date.valueOf() > currentDate.valueOf()) {
-            action = ProcedureTypes.NEXT;
-        }
 
         minDate.date(1).subtract(minDate.day(), "days");
 
@@ -63,15 +47,13 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
             .add(7 - maxDate.day(), "days");
 
         return {
-            currentDate: date,
-            action,
             minDate,
             maxDate
         };
     }
 
     render() {
-        const { minDate, maxDate, action, currentDate } = this.state;
+        const { minDate, maxDate } = this.state;
         const subtractWeeks: number = Math.ceil(
                 (maxDate.valueOf() - minDate.valueOf()) / 8.64e7 / 7
             ),
@@ -83,7 +65,7 @@ class MonthCalendar extends Component<MonthCalendarTypes> {
             weekDate = minDate.clone().subtract(1, "days");
 
         return (
-            <MonthCalendarWrap action={action} month={currentDate.month()}>
+            <MonthCalendarWrap>
                 <WeekList>
                     {weekArray.map((week: number) => (
                         <div key={week}>
