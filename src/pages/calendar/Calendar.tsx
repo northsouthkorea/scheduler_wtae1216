@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
+import { createBrowserHistory } from "history";
 import { bindActionCreators } from "redux";
 import { Moment } from "moment";
 
@@ -137,7 +138,8 @@ class Calendar extends Component<CalendarPropsTypes> {
             type !== prevType ||
             date.format("YYYYMMDD") !== prevDate.format("YYYYMMDD")
         ) {
-            this.props.history.push(
+            const history = createBrowserHistory();
+            history.push(
                 `${match.path}/${type}/${date.year()}/${date.month() +
                     1}/${date.date()}`
             );

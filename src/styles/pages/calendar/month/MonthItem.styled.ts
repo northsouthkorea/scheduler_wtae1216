@@ -21,7 +21,7 @@ export const DateText = styled.p<DateTextProps>`
     font-size: 0.8rem;
     font-weight: bold;
 
-    & > a {
+    & > span {
         cursor: pointer;
         display: inline-block;
         line-height: 1.3rem;
