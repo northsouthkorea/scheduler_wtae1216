@@ -45,13 +45,13 @@ class Calendar extends Component<CalendarPropsTypes> {
         const [
             ,
             type = originalType,
-            urlYear = date.year(),
-            urlMonth = date.month() + 1,
-            urlDate = date.date()
-        ] = location.pathname.split("/").filter((n) => n);
+            urlYear = String(date.year()),
+            urlMonth = String(date.month() + 1),
+            urlDate = String(date.date())
+        ]: string[] = location.pathname.split("/").filter((n) => n);
 
         // set type from url
-        const calendarType = (Object.values(Types).includes(type)
+        const calendarType: Types = (Object.values(Types).includes(type)
             ? type
             : originalType) as Types;
         if (calendarType !== originalType) {
@@ -59,9 +59,13 @@ class Calendar extends Component<CalendarPropsTypes> {
         }
 
         // set date from url
-        date.year(parseInt(String(urlYear), 10))
-            .month(parseInt(String(urlMonth), 10) - 1)
-            .date(parseInt(String(urlDate), 10));
+        const newYear: number = parseInt(urlYear, 10) || originalDate.year();
+        const newMonth: number =
+            (parseInt(urlMonth, 10) || originalDate.month() + 1) - 1;
+        const newDate: number = parseInt(urlDate, 10) || originalDate.date();
+        date.year(newYear)
+            .month(newMonth)
+            .date(newDate);
         if (date.valueOf() !== originalDate.valueOf()) {
             props.setDate(date);
         }

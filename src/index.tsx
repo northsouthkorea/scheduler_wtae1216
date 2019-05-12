@@ -1,10 +1,11 @@
+// tslint:disable:import-group-ordering
+import "config/moment.config";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
 import Root from "Root";
 import * as serviceWorker from "serviceWorker";
-
-import "config/moment.config";
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 
