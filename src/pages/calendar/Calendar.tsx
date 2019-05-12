@@ -132,21 +132,14 @@ class Calendar extends Component<CalendarPropsTypes> {
         prevState: {},
         snapshot?: any
     ) {
-        const { CalendarReducer, match } = this.props;
+        const { CalendarReducer, match, location } = this.props;
         const { type, date } = CalendarReducer;
 
-        const prevType = prevProps.CalendarReducer.type,
-            prevDate = prevProps.CalendarReducer.date;
-
-        if (
-            type !== prevType ||
-            date.format("YYYYMMDD") !== prevDate.format("YYYYMMDD")
-        ) {
+        const url = `${match.path}/${type}/${date.year()}/${date.month() +
+            1}/${date.date()}`;
+        if (location.pathname !== url) {
             const history = createBrowserHistory();
-            history.push(
-                `${match.path}/${type}/${date.year()}/${date.month() +
-                    1}/${date.date()}`
-            );
+            history.push(url);
         }
     }
 }
