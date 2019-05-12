@@ -70,6 +70,7 @@ class CalendarHeader extends Component<CalendarHeaderTypes> {
     handleChangeToday = () => {
         const today = moment();
         this.props.setDate(today);
+        this.props.setAction(ProcedureTypes.CURRENT);
     };
 
     render() {
@@ -86,17 +87,11 @@ class CalendarHeader extends Component<CalendarHeaderTypes> {
                     </TodayButton>
                     <ArrowWrap>
                         <ChevronLeft
-                            onClick={this.handleChangeDate(
-                                ProcedureTypes.PREV
-                            )}>
-                            %lt;
-                        </ChevronLeft>
+                            onClick={this.handleChangeDate(ProcedureTypes.PREV)}
+                        />
                         <ChevronRight
-                            onClick={this.handleChangeDate(
-                                ProcedureTypes.NEXT
-                            )}>
-                            %rt;
-                        </ChevronRight>
+                            onClick={this.handleChangeDate(ProcedureTypes.NEXT)}
+                        />
                     </ArrowWrap>
                     <DateText>{dateText}</DateText>
                 </DateWrap>

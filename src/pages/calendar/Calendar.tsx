@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
-import { createBrowserHistory } from "history";
-import { bindActionCreators } from "redux";
 import { Moment } from "moment";
+import { bindActionCreators } from "redux";
 
 import { StoreState } from "store";
 import { CalendarAction } from "store/actions";
 
-import { ProcedureTypes } from "constants/Common";
 import { Types } from "constants/Calendar";
 
 import DayCalendar from "pages/calendar/day/DayCalendar";
@@ -23,25 +21,14 @@ import {
 
 type CalendarPropsTypes = RouteComponentProps & CalendarTypes;
 
-interface CalendarState {
-    action: ProcedureTypes;
-    currentDate: Moment;
-}
-
 class Calendar extends Component<CalendarPropsTypes> {
-    state: CalendarState = {
-        action: null,
-        currentDate: null
-    };
-
     constructor(props: CalendarPropsTypes) {
         super(props);
+        const { location, CalendarReducer } = props;
+        const { type: originalType, date: originalDate } = CalendarReducer,
+            date = CalendarReducer.date.clone();
 
         // set url pattern
-        const { location, CalendarReducer } = props;
-        const originalType = CalendarReducer.type,
-            originalDate = CalendarReducer.date,
-            date = CalendarReducer.date.clone();
         const [
             ,
             type = originalType,
@@ -59,48 +46,27 @@ class Calendar extends Component<CalendarPropsTypes> {
         }
 
         // set date from url
-        const newYear: number = parseInt(urlYear, 10) || originalDate.year();
-        const newMonth: number =
-            (parseInt(urlMonth, 10) || originalDate.month() + 1) - 1;
-        const newDate: number = parseInt(urlDate, 10) || originalDate.date();
-        date.year(newYear)
-            .month(newMonth)
-            .date(newDate);
+        date.year(parseInt(urlYear, 10) || originalDate.year())
+            .month((parseInt(urlMonth, 10) || originalDate.month() + 1) - 1)
+            .date(parseInt(urlDate, 10) || originalDate.date());
         if (date.valueOf() !== originalDate.valueOf()) {
             props.setDate(date);
         }
     }
 
-    static getDerivedStateFromProps(
-        nextProps: CalendarPropsTypes,
-        state: CalendarState
-    ) {
-        const { CalendarReducer } = nextProps;
-        const date: Moment = CalendarReducer.date.clone(),
-            currentDate = state.currentDate || date;
+    shouldComponentUpdate(nextProps: CalendarPropsTypes) {
+        const { type, date } = this.props.CalendarReducer;
+        const { type: nextType, date: nextDate } = nextProps.CalendarReducer;
 
-        let action = ProcedureTypes.CURRENT;
-        if (date.valueOf() < currentDate.valueOf()) {
-            action = ProcedureTypes.PREV;
-        } else if (date.valueOf() > currentDate.valueOf()) {
-            action = ProcedureTypes.NEXT;
-        }
-
-        return {
-            action,
-            currentDate: date
-        };
+        return !(nextType === type && nextDate.valueOf() === date.valueOf());
     }
 
     render() {
         const { CalendarReducer, match } = this.props;
-        const { type, date } = CalendarReducer;
-        const { action, currentDate } = this.state;
+        const { type, date, action } = CalendarReducer;
         return (
             <CalendarWrap>
-                <CalendarAniWrap
-                    action={action}
-                    date={currentDate.format("YYYYMMDD")}>
+                <CalendarAniWrap action={action} date={date.format("YYYYMMDD")}>
                     <Switch>
                         <Route
                             path={`${match.path}/month`}
@@ -115,33 +81,26 @@ class Calendar extends Component<CalendarPropsTypes> {
                             component={DayCalendar}
                         />
 
-                        <Redirect
-                            to={`${
-                                match.path
-                            }/${type}/${date.year()}/${date.month() +
-                                1}/${date.date()}`}
-                        />
+                        <Redirect to={this.getNewUrl(match.path, type, date)} />
                     </Switch>
                 </CalendarAniWrap>
             </CalendarWrap>
         );
     }
 
-    componentDidUpdate(
-        prevProps: CalendarPropsTypes,
-        prevState: {},
-        snapshot?: any
-    ) {
-        const { CalendarReducer, match, location } = this.props;
+    componentDidUpdate() {
+        const { CalendarReducer, match, location, history } = this.props;
         const { type, date } = CalendarReducer;
 
-        const url = `${match.path}/${type}/${date.year()}/${date.month() +
-            1}/${date.date()}`;
+        const url = this.getNewUrl(match.path, type, date);
         if (location.pathname !== url) {
-            const history = createBrowserHistory();
             history.push(url);
         }
     }
+
+    // get new url from parameter
+    private getNewUrl = (path: string, type: string, date: Moment): string =>
+        `${path}/${type}/${date.year()}/${date.month() + 1}/${date.date()}`;
 }
 
 const mapStateToProps = (state: StoreState) => ({

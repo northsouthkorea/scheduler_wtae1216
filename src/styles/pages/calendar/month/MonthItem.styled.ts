@@ -30,13 +30,13 @@ export const DateText = styled.p<DateTextProps>`
         box-sizing: border-box;
         color: ${({ different, today }) =>
             different ? "#666" : today ? "white" : "#333"};
-        background: ${({ today }) => (today ? "#5a5aff" : "transparent")};
+        background: ${({ today }) => (today ? "#1973e7" : "transparent")};
         padding: 0.2rem;
         border-radius: 1rem;
         transition: background 0.3s;
 
         &:hover {
-            background: ${({ today }) => (today ? "#3c3cb4" : "#eaeaea")};
+            background: ${({ today }) => (today ? "#1967D2" : "#eaeaea")};
         }
     }
 `;
